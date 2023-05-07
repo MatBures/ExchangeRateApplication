@@ -1,4 +1,7 @@
 package com.matyasbures.exchangerateproject;
 
-public interface ExchangeRateRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ExchangeRateRepository extends JpaRepository<ExchangeRateModel, Long> {
+
 }
