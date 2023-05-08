@@ -4,26 +4,21 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-import static jakarta.persistence.GenerationType.SEQUENCE;
-
+/**
+ * This class represents the Exchange Rate Model.
+ * It is mapped to a database table named "Exchange_Rate" using the @Table annotation.
+ * The @Entity annotation indicates that this class is a JPA entity.
+ * The class has 16 fields, each mapped to a column in the "Exchange_Rate" table using the @Column annotation.
+ * The @Id annotation is used to specify the primary key field of the entity.
+ * The @Override annotation is used to indicate that the toString method has been overridden to provide a string representation of the object.
+ * It has getters and setters.
+ */
 @Entity
 @Table(name = "Exchange_Rate")
 public class ExchangeRateModel {
 
     @Id
-    @SequenceGenerator(
-            name = "exchangeRate_sequence",
-            sequenceName = "exchangeRate_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = SEQUENCE,
-            generator = "exchangeRate_sequence"
-    )
-    @Column(name = "exchange_rate_id")
-    private Long id;
-
-    @Column(name = "short_name")
+    @Column(name = "short_name", unique = true)
     private String shortName;
 
     @Column(name = "valid_from")
@@ -71,7 +66,6 @@ public class ExchangeRateModel {
     @Override
     public String toString() {
         return "ExchangeRateModel{" +
-                "id=" + id +
                 ", shortName='" + shortName + '\'' +
                 ", validFrom=" + validFrom +
                 ", name='" + name + '\'' +
@@ -88,14 +82,6 @@ public class ExchangeRateModel {
                 ", cnbMid=" + cnbMid +
                 ", ecbMid=" + ecbMid +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getShortName() {
