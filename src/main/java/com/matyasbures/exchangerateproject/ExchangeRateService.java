@@ -14,6 +14,7 @@ import java.net.http.HttpRequest;
 
 import java.net.http.HttpResponse;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -42,10 +43,17 @@ public class ExchangeRateService {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        List<ExchangeRateModel> exchangeRateModels = objectMapper.readValue(response.body(), new TypeReference<List<ExchangeRateModel>>(){});
+        List<ExchangeRateModel> newExchangeRateModels = objectMapper.readValue(response.body(), new TypeReference<List<ExchangeRateModel>>() {
+        });
 
-        exchangeRateModels.forEach(exchangeRateRepository::save);
+        List<ExchangeRateModel> oldExchangeRateModels = exchangeRateRepository.findAll();
 
-        return exchangeRateModels;
+        if (oldExchangeRateModels.equals(newExchangeRateModels)) {
+            return Collections.emptyList();
+        } else {
+            exchangeRateRepository.deleteAll();
+            exchangeRateRepository.saveAll(newExchangeRateModels);
+            return newExchangeRateModels;
+        }
     }
 }
