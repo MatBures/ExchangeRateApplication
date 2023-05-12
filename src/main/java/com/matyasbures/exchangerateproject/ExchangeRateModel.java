@@ -17,53 +17,53 @@ import java.time.LocalDateTime;
  * It has getters and setters.
  */
 @Entity
-@Table(name = "Exchange_Rate")
+@Table(name = "${exchange_rate.table.name}")
 public class ExchangeRateModel {
 
     @Id
-    @Column(name = "short_name", unique = true)
+    @Column(name = "${short_name.column.name}", unique = true)
     private String shortName;
 
-    @Column(name = "valid_from")
+    @Column(name = "${valid_from.column.name}")
     private LocalDateTime validFrom;
 
-    @Column(name = "name")
+    @Column(name = "${name.column.name}")
     private String name;
 
-    @Column(name = "country")
+    @Column(name = "${country.column.name}")
     private String country;
 
-    @Column(name = "move")
+    @Column(name = "${move.column.name}")
     private double move;
 
-    @Column(name = "amount")
+    @Column(name = "${amount.column.name}")
     private double amount;
 
-    @Column(name = "val_buy")
+    @Column(name = "${val_buy.column.name}")
     private double valBuy;
 
-    @Column(name = "val_sell")
+    @Column(name = "${val_sell.column.name}")
     private double valSell;
 
-    @Column(name = "val_mid")
+    @Column(name = "${val_mid.column.name}")
     private double valMid;
 
-    @Column(name = "curr_buy")
+    @Column(name = "${curr_buy.column.name}")
     private double currBuy;
 
-    @Column(name = "curr_sell")
+    @Column(name = "${curr_sell.column.name}")
     private double currSell;
 
-    @Column(name = "curr_mid")
+    @Column(name = "${curr_mid.column.name}")
     private double currMid;
 
-    @Column(name = "version")
+    @Column(name = "${version.column.name}")
     private int version;
 
-    @Column(name = "cnb_mid")
+    @Column(name = "${cnb_mid.column.name}")
     private double cnbMid;
 
-    @Column(name = "ecb_mid")
+    @Column(name = "${ecb_mid.column.name}")
     private double ecbMid;
 
     @Override
