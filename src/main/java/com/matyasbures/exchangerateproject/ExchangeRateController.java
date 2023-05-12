@@ -1,7 +1,11 @@
 package com.matyasbures.exchangerateproject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,16 +18,11 @@ import java.util.List;
  * The @RequestMapping annotation specifies the base URL for all methods in this controller. Here, it is "/api".
  */
 @RestController
-@CrossOrigin("http://localhost:3000")
 @RequestMapping("/api")
 public class ExchangeRateController {
 
-    private final ExchangeRateService exchangeRateService;
-
-    // Constructor injection to set the ExchangeRateService
-    public ExchangeRateController(ExchangeRateService exchangeRateService) {
-        this.exchangeRateService = exchangeRateService;
-    }
+    @Autowired
+    private ExchangeRateService exchangeRateService;
 
     // Handles GET requests to the "/api/exchangerates" endpoint with optional "usedb" query parameter
     @GetMapping("/exchangerates")
@@ -35,10 +34,10 @@ public class ExchangeRateController {
             return ResponseEntity.ok(exchangeRates);
         }
 
-        // Otherwise, fetch exchange rates from API, update database, and return success message as response
+        // Otherwise, fetch exchange rates from API and update database
         else {
             exchangeRateService.updateExchangeRatesFromAPI();
-            return ResponseEntity.ok("Exchange rates from Česká spořitelna successfully updated to database");
+            return ResponseEntity.ok(exchangeRateService.updateExchangeRatesFromAPI());
         }
     }
 }
